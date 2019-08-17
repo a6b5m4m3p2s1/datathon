@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1566016234815.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CA5A178B",
+    "lastKnownWriteTime" : 2481042943426913650,
+    "last_content_update" : 1566016234815,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "78610C73",
+        "caption" : "crush19",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=crush19&cache_key=78610C73",
+        "displayedObservations" : 11,
+        "environment" : "",
+        "expression" : "crush19",
+        "object" : "crush19",
+        "preview" : 0,
+        "totalObservations" : 11,
+        "variables" : 8
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

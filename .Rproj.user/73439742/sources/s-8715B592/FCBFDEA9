@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1566005466790.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "FCBFDEA9",
+    "lastKnownWriteTime" : 1565963032,
+    "last_content_update" : 1565963032,
+    "path" : "C:/Users/shane/Shane's Folders/Analytics/Melbourne Datathon 2019/datathon/Syntax/Grabbing Crush Statistics.R",
+    "project_path" : "Syntax/Grabbing Crush Statistics.R",
+    "properties" : {
+        "cursorPosition" : "92,0",
+        "scrollLine" : "80"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

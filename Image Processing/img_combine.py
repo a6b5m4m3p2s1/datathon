@@ -15,19 +15,19 @@ import numpy as np
 from PIL import Image  
 from functions_image import img_grey_to_rgb
 
-
 tile_date_list = 'files.txt'
-save_folder = './data/Combined/By Date/'
+save_folder = '../data/processed/Combined/By Date/'
 # The initial release contains only one tile, so lets hard-code its location here.  When you have more tiles, you can update this
 TILE_X = 7680
 TILE_Y = 10240
-path = f"./data/sentinel-2a-tile-{TILE_X}x-{TILE_Y}y/timeseries/{TILE_X}-{TILE_Y}-"
+path = f"../data/unprocessed/sentinel-2a-tile-{TILE_X}x-{TILE_Y}y/timeseries/{TILE_X}-{TILE_Y}-"
 
 with open(tile_date_list) as f:
     content = f.readlines()
 content = [x.strip() for x in content]
 
-for dt in range(len(content)):
+#for dt in range(len(content)):
+for dt in range(10, 11):
     tile_date = content[dt]
 
     img_band = []

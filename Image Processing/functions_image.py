@@ -25,12 +25,14 @@ For this reason, I wrote this to do a crude conversion from grey to RGB
 source_file: string representing path and file of image
 save_as:     string representing path and file to save converted image (optional)
 display:     boolean if True will display converted image in IPython console
+quiet:       no msg if wrong file type passed
 """
-def img_grey_to_rgb(source_file, save_as = '', display = False):
+def img_grey_to_rgb(source_file, save_as = '', display = False, quiet = False):
     img_source = Image.open(source_file)
     if img_source.mode != "I":
-        print(f"Processing: {source_file}")
-        print("Source image is not 'I' (32-bit signed integer pixels). Returned image is same as source.")
+        if not quiet:
+            print(f"Processing: {source_file}")
+            print("Source image is not 'I' (32-bit signed integer pixels). Returned image is same as source.")
         ret = img_source
     else:
         size = img_source.size

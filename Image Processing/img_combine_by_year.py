@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 import matplotlib.pyplot as plt
 
 """
@@ -16,8 +16,8 @@ year_dates = [[s.strip() for s in nested] for nested in year_dates]  # Strip spe
 
 TILE_X = 7680
 TILE_Y = 10240
-save_folder = './data/Combined/By Year/'
-path_tiles = f"./data/sentinel-2a-tile-{TILE_X}x-{TILE_Y}y/timeseries/{TILE_X}-{TILE_Y}-TCI-"
+save_folder = '../data/processed/Combined/By Year/'
+path_tiles = f"../data/unprocessed/sentinel-2a-tile-{TILE_X}x-{TILE_Y}y/timeseries/{TILE_X}-{TILE_Y}-TCI-"
 path_extra = "./extra_tiles/512x512_"
 
 imgs_comb = []

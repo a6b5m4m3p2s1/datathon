@@ -25,14 +25,12 @@ For this reason, I wrote this to do a crude conversion from grey to RGB
 source_file: string representing path and file of image
 save_as:     string representing path and file to save converted image (optional)
 display:     boolean if True will display converted image in IPython console
-quiet:       no msg if wrong file type passed
 """
-def img_grey_to_rgb(source_file, save_as = '', display = False, quiet = False):
+def img_grey_to_rgb(source_file, save_as = '', display = False):
     img_source = Image.open(source_file)
     if img_source.mode != "I":
-        if not quiet:
-            print(f"Processing: {source_file}")
-            print("Source image is not 'I' (32-bit signed integer pixels). Returned image is same as source.")
+        print(f"Processing: {source_file}")
+        print(f"Source image is '{img_source.mode}', not 'I' (32-bit signed integer pixels). Returned image is same as source.")
         ret = img_source
     else:
         size = img_source.size
@@ -64,14 +62,18 @@ ToDo: Doco for variables
 """
 
 def draw_text_centred(im, msg, font_size, text_clr, font_file = '', boundary_x = (0, 0), boundary_y = (0, 0)):
-    im = im.copy()                                                  # Otherwise mutates object passed (check this, may have been due to earlier error in code)
+    im = im.copy()                                           # Otherwise mutates object passed (check this, may have been due to earlier error in code)
     draw = ImageDraw.Draw(im)
     if (boundary_x == (0, 0)) and (boundary_y == (0, 0)):
         text_bdry = im.size
         text_o = (0, 0)
     else:
-        if boundary_x == (0, 0): boundary_x = (0, im.size[0])
-        if boundary_y == (0, 0): boundary_y = (0, im.size[1])
+        if all(0 <= x <= 1 for x in boundary_x) and all(0 <= y <= 1 for y in boundary_y):   # Passed as proportion of image
+            boundary_x = tuple([x * im.size[0] for x in boundary_x])
+            boundary_y = tuple([y * im.size[1] for y in boundary_y])
+        else:
+            if boundary_x == (0, 0): boundary_x = (0, im.size[0])
+            if boundary_y == (0, 0): boundary_y = (0, im.size[1])
         text_bdry = (boundary_x[1] - boundary_x[0], boundary_y[1] - boundary_y[0])
         text_o = (boundary_x[0], boundary_y[0])
 

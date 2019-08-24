@@ -23,9 +23,11 @@ TILE_SIZE_PX = (TILE_WIDTH_PX, TILE_HEIGHT_PX)
 TILE_DATE_LIST = 'files.txt'
 SAVE_FOLDER =  '../data/processed/Combined/By Channel/'
 PATH_TILES  = f'../data/unprocessed/sentinel-2a-tile-{TILE_LOCNxy}/timeseries/{TILE_LOCN}-TCI-'
-PATH_MASK   =  '../data/processed/mask/'
+#PATH_MASK  = f'../data/unprocessed/sentinel-2a-tile-{TILE_LOCNxy}/masks/'
+PATH_MASK  = f'../data/processed/mask/'
 
-img_mask = Image.open(f'{PATH_MASK}{TILE_LOCNxy}-mask_fixed.png')
+#img_mask = Image.open(f'{PATH_MASK}sugarcane-region-mask-v2.png')
+img_mask = Image.open(f'{PATH_MASK}sugarcane-region-mask-v2_inv.png')
 
 with open(TILE_DATE_LIST) as f:
     dt_list = f.readlines()
@@ -38,11 +40,10 @@ tile_list = [f'{PATH_TILES}{x}.png' for x in dt_list]
 # List of channels for extraction from main image
 # Allows looping for channels rather than hard-coding
 # Each row represents a channel to extract
-# Each of the 3 lists in the row represents the makeup of the output channel
+# Each of the 3 lists in the row represents the makeup of the RGB output channel
 # The innermost list represents how the output channel is made up, so row 4 = red channel 
 # output to RGB channels, so a greyscale image of the red channel.
 # Based on an idea from https://stackoverflow.com/questions/51325224/python-pil-image-split-to-rgb
-clr_ch
 """
 clr_ch = [[[1, 0, 0], [0, 0, 0], [0, 0, 0]],                 # Red channel                \ 
           [[0, 0, 0], [0, 1, 0], [0, 0, 0]],                 # Green channel              \

@@ -104,7 +104,7 @@ venv.bak/
 .mypy_cache/
 
 # R files 
-.RProj
+*.RProj.user*
 .Rproj.user/73439742/sources/s-FBDB5D57/B87D03B0-contents
 .Rhistory
 .Rproj.user/73439742/sources/s-FBDB5D57/FADF161A-contents

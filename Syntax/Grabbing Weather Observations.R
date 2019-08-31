@@ -11,6 +11,8 @@
 
 # ------------------------------------------------------------------------------
 ## Preliminaries ---- 
+start_time <- proc.time()
+
 ## Load Packages and Source Functions 
 library(here) 
 source(here("Syntax", "0 Functions.R"))
@@ -27,10 +29,13 @@ months <- c("201807", "201808", "201809", "201810", "201811", "201812", "201901"
             "201903", "201904", "201905", "201906", "201907") 
 
 ## Weather Stations of Interest
-weather_stations <- data.frame(station_id = c("4096", "4078"), 
-                               station_name = c("Proserpine Airport", "Mackay"))
+# weather_stations <- data.frame(station_id = c("4096", "4078"), 
+#                                station_name = c("Proserpine Airport", "Mackay"))
+# 
+# station <- weather_stations$station_id # We'll just be passing station_id into function
 
-station <- weather_stations$station_id # We'll just be passing station_id into function
+station <- readRDS(here("Supplementary_Data", "Weather Stations - RDS", "Weather Stations.RDS")) 
+station <- as.character(station$Site) 
 
 
 # ------------------------------------------------------------------------------
@@ -41,7 +46,15 @@ observations <- purrr::map_df(.x = station, function(station, months) {
   print(months)
   
   ## Iterate through all months for a particular station 
-  purrr::map_df(months, ~fetch_weather(month = .x, station = station), station)
+  tryCatch(purrr::map_df(months, ~fetch_weather(month = .x, station = station), station), 
+  error = function(e){data.frame(month = months, station = station, date = NA, day = NA, 
+                                 min_temp = NA, max_temp = NA, rainfall_mm = NA, 
+                                 evap_mm = NA, sun_hours = NA, max_wind_gust_dir = NA, 
+                                 max_wind_gust_km_h = NA, max_wind_gust_time = NA, 
+                                 temp_9am = NA, RH_9am = NA, cloud_8th_9am = NA, 
+                                 wind_dir_9am = NA, wind_spd_km_h_9am = NA, MSLP_hPa_9am = NA, 
+                                 temp_3pm = NA, RH_3pm = NA, cloud_8th_3pm = NA, 
+                                 wind_dir_3pm = NA, wind_spd_km_h_3pm = NA, MSLP_hPa_3pm = NA)})
   
 }, months)
 
@@ -49,13 +62,18 @@ observations <- purrr::map_df(.x = station, function(station, months) {
 # ------------------------------------------------------------------------------
 ## Output in CSV and RDS formats ---- 
 write_csv(observations, here("supplementary_data", 
-                             "Weather Observations (Mackay & Proserpine).csv")) 
+                             "Weather Observations (All).csv")) 
 
 saveRDS(observations, here("supplementary_data", 
-                           "Weather Observations (Mackay & Proserpine).rds")) 
+                           "Weather Observations (All).rds")) 
 
 
 # ------------------------------------------------------------------------------
+end_time <- proc.time() 
+
+time_taken <- end_time[3] - start_time[3] 
+minutes_taken <- time_taken / 60 
+
 
 # ------------------------------------------------------------------------------
 

@@ -34,8 +34,8 @@ months <- c("201807", "201808", "201809", "201810", "201811", "201812", "201901"
 # 
 # station <- weather_stations$station_id # We'll just be passing station_id into function
 
-station <- readRDS(here("Supplementary_Data", "Weather Stations - RDS", "Weather Stations.RDS")) 
-station <- as.character(station$Site) 
+all_stations <- readRDS(here("Supplementary_Data", "Weather Stations - RDS", "Weather Stations.RDS")) 
+station <- as.character(all_stations$Site) 
 
 
 # ------------------------------------------------------------------------------
@@ -67,6 +67,19 @@ write_csv(observations, here("supplementary_data",
 saveRDS(observations, here("supplementary_data", 
                            "Weather Observations (All).rds")) 
 
+check01 <- observations %>% count(month, station) 
+check02 <- check01 %>% filter(n > 1) %>% count(station) 
+
+all_stations %<>% mutate_all(as.character) %>% select(Site, Name, Lat, Lon)
+
+valid <- check02 %>% 
+  select(station) %>% 
+  left_join(all_stations, by = c("station" = "Site")) 
+
+observations_final <- valid %>% inner_join(observations) 
+
+write_csv(observations_final, here("supplementary_data", "Weather Observations (All Valid).CSV"))
+saveRDS(observations_final, here("supplementary_data", "Weather Observations (All Valid).RDS"))
 
 # ------------------------------------------------------------------------------
 end_time <- proc.time() 
